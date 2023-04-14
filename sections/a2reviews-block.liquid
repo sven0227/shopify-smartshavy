@@ -1,0 +1,37 @@
+<div class="a2reviews-block-wrapper">
+    <a2reviews-block block-id="{{ section.settings.block_id }}" name="{{ section.settings.block_name }}"></a2reviews-block>
+</div>
+
+{% schema %}
+{
+  "name": "A2Reviews Block",
+  "class": "a2reviews-section",
+  "settings": [{
+    "type":      "text",
+    "id":        "block_id",
+    "label":     "Block Id",
+    "default":   "0",
+    "info":      "Text",
+    "placeholder": "A2Reviews Block ID"
+  }, {
+    "type":      "text",
+    "id":        "block_name",
+    "label":     "Block Name",
+    "default":   "Reviews on homepage",
+    "info":      "Text",
+    "placeholder": "A2Reviews Block Name"
+  }],
+	"presets": [
+    {
+      "name": "A2Reviews Block",
+      "category": "A2Reviews"
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,58 @@
+
+{% if shop.metafields.pagefly.acceptTracking %}
+{% if shop.metafields.pagefly.measurementId %}
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ shop.metafields.pagefly.measurementId }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ shop.metafields.pagefly.measurementId }}', { groups: 'pagefly' });
+  window.pfPageInfo = Object.assign(window.pfPageInfo || {}, {
+    pf_page_type: '{{ request.page_type }}',
+    pf_page_subject_id: '{{ page.id }}',
+    {% if template.name == 'product' %}
+      pf_product_name: '{{ product.title }}',
+      pf_product_id: '{{ product.id }}',
+      pf_product_page_image: '{{ product.featured_image | img_url }}',
+    {% endif %}
+    {% if template.name == 'collection' %}
+      pf_collection_name: '{{ collection.title }}',
+      pf_collection_id: '{{ collection.id }}',
+      pf_collection_page_image: '{{ collection.featured_image | img_url }}',
+    {% endif %}
+  });
+  setTimeout(function() {
+    gtag('event', 'pf_view_page', Object.assign({
+      pf_view_page: 1,
+      send_to: 'pagefly',
+      pf_event: 'view_page'
+    }, window.pfPageInfo))
+  }, 500);
+</script>
+{% endif %}
+<script>window.__pagefly_analytics_settings__={
+	acceptNewTracking: true,
+	enableTrackingRevenue: {{shop.metafields.pagefly.enableTrackingRevenue | default: false}},
+	sessionTimeout: {{ shop.metafields.pagefly.sessionTimeout | default: 30 }},
+	timezoneOffset: {{ shop.metafields.pagefly.timezoneOffset | default: 0 }}
+};
+    if(typeof analyticsSrc === 'undefined'){
+    let analyticsSrc = "https://cdn.pagefly.io/pagefly/core/analytics.js";
+    const scriptPFAnalytic = document.createElement('script');
+    scriptPFAnalytic.src = analyticsSrc;
+    scriptPFAnalytic.async = true;
+    scriptPFAnalytic.defer = false;
+    scriptPFAnalytic.onload = () => {
+      console.log("load analytics new version sucessfully")
+    };
+    scriptPFAnalytic.onerror = () => {
+      console.log("load analytics new version unsuccessfully")
+    };
+    document.body.appendChild(scriptPFAnalytic);
+    };
+</script>
+{% endif %}
+
+{% if shop.metafields.pagefly.globalSetting %}{{ shop.metafields.pagefly.globalSetting }}{% endif %}
+{{ 'pagefly-main.css' | asset_url | stylesheet_tag: preload: true }}

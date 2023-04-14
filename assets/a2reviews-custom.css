@@ -1,0 +1,72 @@
+/* 
+ * THIS IS A CUSTOM STYLE FILE THAT IS AUTOMATICALLY GENERATED FROM THE A2REVIEWS APPLICATION SYSTEM.
+ * NOTE DO NOT CHANGE DIRECTLY FROM THIS FILE.
+ */
+.a2-avg-rating .a2-avg-active > span{
+	width: 16px;
+    font-size: 16px;
+    line-height: 16px;
+}
+.a2-reviews-heading .a2-avg-rating .a2-avg-active > span svg {
+    fill: #ffc700;
+    color: #ffc700;
+}
+.a2-reviews-heading .a2-avg-rating .a2-progress-bar__outer{
+    background-color: #c4c4c4;
+}
+.a2-reviews-heading .a2-add-review-section > a.a2-button{
+    background-color: #333;
+    color: #FFF;
+}
+.a2-reviews-heading .a2-add-review-section > a.a2-button:hover{
+    background-color: #333;
+}
+
+/* Q&A */
+body a2-questions{
+    color: inherit;
+    background-color: inherit;
+    margin: 0px 0px 0px 0px;
+    padding: 20px 20px 20px 20px;
+    border: inherit;
+    border-radius: inherit;
+}
+.a2-qa-heading a.a2-ask-question{
+    background-color: #333; 
+    color: #FFF;
+}
+.a2-qa-heading a.a2-ask-question:hover{
+    background-color: #444;
+}
+
+/* Amazon Buy Now Button */
+.a2mazon-buy-now-button{display: inline-block;}
+.a2mazon-buy-now-button img{max-width: 100%;}
+.a2mazon-buy-now-button.a-mini{max-width: 180px;}
+.a2mazon-buy-now-button.a-small{max-width: 225px;}
+.a2mazon-buy-now-button.a-medium{max-width: 270px;}
+.a2mazon-buy-now-button.a-large{max-width: 300px;}
+.a2mazon-custom-buy-now-button{
+    color: #333333;
+    background-color: #FFFFFF;
+    display: inline-block;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    text-decoration: none;
+    border: none;
+    text-align: center;
+    border-radius: 5px;
+    font-size: initial;
+    font-style: inherit;
+}
+.a2mazon-custom-buy-now-button:hover{
+    color: #003A96;
+    background-color: #F5F5F5;
+}
+.a2cbnb-img{
+    display: inline-block;
+    max-width: 300px;
+}
+.a2cbnb-img img{
+    max-width: 100%;
+}

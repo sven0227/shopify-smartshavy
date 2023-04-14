@@ -1,0 +1,11 @@
+{% comment %} This file automatically generated please do not change (v2). {% endcomment %}
+{% assign a2IsTemporaryDisable = shop.metafields.a2reviews.isTemporaryDisable %}
+{% assign a2_settings = shop.metafields.a2reviews.settings.value %}
+<script type="text/javascript">var A2_Reviews_Shopify = { template: "{{ template }}", domain:"{{shop.domain}}", loading_url:"https://static.a2rev.com/icons/loading-orange.svg", settings:{{a2_settings | json}}, observer_active:false}</script>
+{% if a2IsTemporaryDisable != 1 and a2_settings.loadInHead == true %}
+{%- if a2_settings.script_options contains template -%}
+{% comment %} No a2reviews script {% endcomment %}
+{% else %}
+<script type="text/javascript">document.addEventListener("DOMContentLoaded",()=>{(function(){d=document;s=d.createElement("script");s.src="https://s1-cdn.a2rev.com/a2/1.1.1/js/app.js?shop={{shop.domain}}&timestamp=1679028521";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();});</script>
+{% endif %}
+{% endif %}

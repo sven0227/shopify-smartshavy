@@ -1,0 +1,74 @@
+{% assign A2MetaProduct = product.metafields.a2reviews %}
+{% assign A2_Reviews = A2MetaProduct.reviews.value %}
+<div class="container page-width a2reviews-container a2-on-{{ template }}">
+{% if type == 'QA' %}
+    {% if shop.metafields.a2reviews.qa_status != 0 %}
+    <a2-questions
+      lang="{{ shop.locale }}"
+      handle="{{ product.handle }}">
+    </a2-questions>
+    {% endif %}
+{% else %}
+    <a2-reviews
+        handle="{{ product.handle }}"
+        lang="{{ shop.locale }}">
+    </a2-reviews>
+{% endif %}
+</div>
+<div style="width:100%;height:40px;clear:both;"></div>
+{% if template contains 'product' and type != 'QA' %}
+{%- assign a2_current_variant = product.selected_or_first_available_variant -%}
+{%- if cart.currency.iso_code == 'GBP' or cart.currency.iso_code == 'USD' or cart.currency.iso_code == 'AUD' or cart.currency.iso_code == 'AED' or cart.currency.iso_code == 'CAD' or cart.currency.iso_code == 'BWP' or cart.currency.iso_code == 'BND' or cart.currency.iso_code == 'DOP' or cart.currency.iso_code == 'GTQ' or cart.currency.iso_code == 'HKD' or cart.currency.iso_code == 'INR' or cart.currency.iso_code == 'ILS' or cart.currency.iso_code == 'YEN' or cart.currency.iso_code == 'KES' or cart.currency.iso_code == 'KOR' or cart.currency.iso_code == 'LBP' or cart.currency.iso_code == 'MYR' or cart.currency.iso_code == 'MXN' or cart.currency.iso_code == 'NPR' or cart.currency.iso_code == 'NZD' or cart.currency.iso_code == 'NIO' or cart.currency.iso_code == 'NGN' or cart.currency.iso_code == 'PKR' or cart.currency.iso_code == 'CNY' or cart.currency.iso_code == 'PHP' or cart.currency.iso_code == 'SGD' or cart.currency.iso_code == 'LKR' or cart.currency.iso_code == 'CHF' or cart.currency.iso_code == 'TWD' or cart.currency.iso_code == 'TSH' or cart.currency.iso_code == 'THB' or cart.currency.iso_code == 'UGX' or cart.currency.iso_code == 'KWD' or cart.currency.iso_code == 'CLP' -%}
+{%- assign a2_product_price = a2_current_variant.price | money_without_currency | remove:',' -%}
+{%- else -%}
+{%- assign a2_product_price = a2_current_variant.price | money_without_currency | remove:'.' | replace: ',', '.' -%}
+{%- endif -%}
+<script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "brand": {
+        "@type": "Brand",
+      "name": "{{ product.vendor | escape }}"
+      },
+      "description": "{{ product.description | strip_html | truncatewords: 50 }}",
+      "sku": "{{ a2_current_variant.sku }}",
+      "mpn": "{{ a2_current_variant.barcode }}",
+      "image": "https:{{ product.featured_image.src | img_url: 'grande' }}",
+      "name": "{{ product.title }}",
+      "review": [{% for review in A2_Reviews limit:2 %}{
+        "@type": "Review",
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "{{ review.rating }}"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "{{ review.author }}"
+        },
+        "reviewBody": "{{ review.content }}"
+      }{% if forloop.last != true %},{% endif %}{% endfor %}],
+      {%- if A2MetaProduct.total_rating > 0 -%}
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "{{ A2MetaProduct.avg_rating }}",
+        "bestRating": "5",
+        "ratingCount": "{{ A2MetaProduct.total_rating }}"
+      },
+      {% endif %}
+      "offers": {
+        "@type": "Offer",
+        "url": "{{ shop.url }}{{ a2_current_variant.url }}",
+        "priceCurrency": "{{ cart.currency.iso_code }}",
+        "price": "{{ a2_product_price }}",
+        "priceValidUntil": "{{ 'now' | date: '%s' | plus: 31536000 | date: '%Y-%m-%d' | uri_encode | replace:'+','%20' }}",
+        "itemCondition": "https://schema.org/UsedCondition",
+        "availability": "http://schema.org/{% if a2_current_variant.available %}InStock{% else %}OutOfStock{% endif %}",
+        "seller": {
+          "@type": "Organization",
+          "name": "Shopify"
+        }
+      }
+    }
+</script>
+{% endif %}

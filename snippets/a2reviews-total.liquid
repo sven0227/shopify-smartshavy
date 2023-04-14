@@ -1,0 +1,40 @@
+{% assign a2_settings = shop.metafields.a2reviews.settings.value %}
+{% assign A2MetaSettings = shop.metafields.a2reviews.settings.value %}
+{% assign A2MetaProduct = product.metafields.a2reviews %}
+{% assign A2MetaCollection = collection.metafields.a2reviews %}
+{%- if a2_settings.total_widget_display_on contains 'loop' and template.name == null %}
+  {% assign isA2ShowInLoop = true %}
+{% else %}
+  {% assign isA2ShowInLoop = false %}
+{% endif %}
+
+{%- if a2_settings.total_widget_display_on == null or a2_settings.total_widget_display_on contains template.name or isA2ShowInLoop -%}
+  {% if A2MetaCollection.status == 0 and type == 'collection' %}
+    {% comment %} Hide on special collection {% endcomment %}
+  {% else %}
+    {% if A2MetaProduct.total_rating > 0 or A2MetaSettings.show_zero_count != false %}
+      <a2-reviews-total
+          {% if type == 'collection' %}collection{% endif %}
+          handle="{{ product.handle }}"
+          total="{% if A2MetaProduct.status == 0 %}0{% else %}{{ A2MetaProduct.total_rating }}{% endif %}|{{ A2MetaProduct.xTR }}"
+        	avg="{% if A2MetaProduct.status == 0 %}0{% else %}{{ A2MetaProduct.avg_rating }}{% endif %}"
+          lang="{{ shop.locale }}"
+          show-text="false"
+        	show-avg="false"
+          {% if type != 'collection' %}
+          callback="a2reviews_callback()"
+          is-scroll
+          {% endif %}
+      ></a2-reviews-total>
+    {% endif %}
+  {% endif %}
+  {% if type != 'collection' %}
+  <script type="text/javascript">
+  if(typeof a2reviews_callback === 'undefined'){
+  	function a2reviews_callback(){
+  		// Do callback
+  	}
+  }
+  </script>
+  {% endif %}
+{% endif %}
