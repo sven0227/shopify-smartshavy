@@ -271,7 +271,7 @@
             $.getJSON('/cart.json').then(cart => {
               $('body').trigger('added.ajaxProduct', this.$addToCart);
               document.dispatchEvent(new CustomEvent('ajaxProduct:added', {
-                detail: { product: product_id }
+                detail: { product: product }
               }));
             });
           });
@@ -281,21 +281,24 @@
   <script>
     window.addEventListener('DOMContentLoaded', function () {
       $(document).ready(function () {
-        console.log("theme.liquid, DOMContentLoaded")
         $.fn.customeUpsaleProduct = function () {
           let cst_elt = $('[data-custome_upsale_product]');
-          let product_handle = cst_elt.attr('data-product_handle');
-          let variant_id = cst_elt.attr('data-variants');
+          //let product_handle = cst_elt.attr('data-product_handle');
+          let product_handle = "https://shavylondon.com/products/crystal-hair-eraser.json"
+          //let variant_id = cst_elt.attr('data-variants');
+          let variant_id = "43843977183476";
+          console.log("theme.liquid, customeUpsaleProduct",cst_elt,product_handle,variant_id)
           $.get(product_handle).then(function (res, status, e) {
             fetch("/cart.js").then((response) => response.json()).then((res1) => {
               if (e.status == 200) {
-                // console.log(res.product);
+                console.log("assets/theme.liquid fetch",res1);
                 let flag = true;
                 $.each(res1.items, function (key1, val1) {
                   if (val1.id == variant_id) {
                     flag = false;
                   }
                 })
+
                 if (flag) {
                   $.each(res.product.variants, function (key, val) {
                     if (val.id == variant_id) {
@@ -316,6 +319,7 @@
           });
         }
         $(document).on('click', '[data-add_to_cart="related_product"]', function () {
+          console.log("clicked")
           let cst_elt = $('[data-custome_upsale_product]');
           let variant_id = cst_elt.attr('data-variants');
           // let qty = $('[data-custome_upsale_product]').find('.js-qty__num').val();
