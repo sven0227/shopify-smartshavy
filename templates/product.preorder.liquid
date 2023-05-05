@@ -1,4 +1,4 @@
-{% section 'product-template' %}
+{% include 'product-content.zipifypages', contentprt: 'header' %}{% section 'product-template' %}
 {% section 'product-recommendations' %}
 {% section 'recently-viewed' %}
 
@@ -20,3 +20,4 @@
     unavailable: {{ 'products.product.unavailable' | t | json }}
   };
 </script>
+{% include 'product-content.zipifypages', contentprt: 'footer' %}

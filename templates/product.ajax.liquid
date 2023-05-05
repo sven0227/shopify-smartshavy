@@ -1,4 +1,4 @@
-{% comment %}
+{% include 'product-content.zipifypages', contentprt: 'header' %}{% comment %}
   Exact same as normal product template but without unneeded markup
   that slows down ajax loading
 {% endcomment %}
@@ -16,3 +16,4 @@
     unavailable: {{ 'products.product.unavailable' | t | json }}
   };
 </script>
+{% include 'product-content.zipifypages', contentprt: 'footer' %}

@@ -1,4 +1,4 @@
-{% section 'product-template' %}
+{% include 'product-content.zipifypages', contentprt: 'header' %}{% section 'product-template' %}
 {% section 'product-recommendations' %}
 {% section 'recently-viewed' %}
 
@@ -21,4 +21,4 @@
   };
 </script>
 
-{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, auto_install: true, product: product %}
+{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, auto_install: true, product: product %}{% include 'product-content.zipifypages', contentprt: 'footer' %}

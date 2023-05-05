@@ -1,4 +1,4 @@
-{% section 'product-template' %}
+{% include 'product-content.zipifypages', contentprt: 'header' %}{% section 'product-template' %}
   {% render 'a2reviews-widget' product:product %}
 {% section 'product-recommendations' %}
 {% section 'recently-viewed' %}
@@ -23,4 +23,4 @@
 </script>
 
 {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, auto_install: true, product: product %} 
- <div id='Areviewsapp' class='page-full'>{% render 'aliexpress_reviews' , product: product %}</div>
+ <div id='Areviewsapp' class='page-full'>{% render 'aliexpress_reviews' , product: product %}</div>{% include 'product-content.zipifypages', contentprt: 'footer' %}
