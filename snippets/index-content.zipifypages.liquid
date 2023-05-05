@@ -1,0 +1,19 @@
+{%- assign zp_use_homepage = false -%}{%- comment -%}
+  Updated: 08/25/2021
+  This file is system-generated and should not be modified
+  We reserve the right to overwrite it at any moment to add improvements or new features so that customizations you made might be lost
+{%- endcomment -%}
+{%- if zp_use_homepage -%}{% assign zp_shop_metafields = shop.metafields['zipifypages'] %}{% assign zp_shop_metafields_loaded = true %}{% assign zp_index_page = zp_shop_metafields['indexpage'] %}{% assign zp_index_page_handle = zp_shop_metafields['indexpagehandle'] %}{% if zp_index_page.type == 'page_reference' %}{% assign zp_current_entity = zp_index_page.value %}{% elsif zp_index_page_handle.size > 0 %}{% assign zp_current_entity = pages[zp_index_page_handle] %}{% else %}{% assign zp_current_entity = nil %}{% endif %}{% assign zp_current_entity_id_size = '' | append: zp_current_entity.id | size %}
+  {%- if zp_current_entity_id_size > 0 -%}
+    {%- if zp_current_entity.template_suffix contains 'custom.zipifypages' -%}
+{%- include 'page-content.zipifypages', renderctx: 'idxthmtpl' -%}
+    {%- else -%}
+{%- include 'page-content.zipifypages', renderctx: 'idxtpl' -%}
+{%- layout 'theme.zipifypages' -%}
+    {%- endif -%}
+  {%- else -%}
+{% include 'index.original.zipifypages' %}
+  {%- endif -%}
+{%- else -%}
+  {% include 'index.original.zipifypages' %}
+{%- endif -%}
