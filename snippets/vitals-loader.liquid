@@ -1,1 +1,12 @@
-{% if content_for_header contains 'appsolve.io' %}<script src="https://appsolve.io{{ content_for_header | split: 'appsolve.io' | last | split: '"' | first | replace: '\u0026' : '&' | replace: '\/' : '/' }}" async></script>{% endif %}
+{% if content_for_header contains 'appsolve.io' %}<script src="https://appsolve.io{{ content_for_header | split: 'appsolve.io' | last | split: '"' | first | replace: '\u0026', '&' | replace: '\/', '/' }}" async></script>{% endif %}{%- comment -%}
+
+This file has been rewritten to preserve the original behavior.
+
+---
+Changes:
+- from: '{{ content_for_header | split: ''appsolve.io'' | last | split: ''"'' | first
+    | replace: ''\u0026'' : ''&'' | replace: ''\/'' : ''/'' }}'
+  to: '{{ content_for_header | split: ''appsolve.io'' | last | split: ''"'' | first
+    | replace: ''\u0026'', ''&'' | replace: ''\/'', ''/'' }}'
+  position: 82..203
+{%- endcomment -%}
